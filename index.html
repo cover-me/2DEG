@@ -8,6 +8,7 @@
 		<div id='constant', style='background:#ddd'></div>
 		<table id='table_0d_1d' bgcolor='#edb'></table>
 		<table id='table_2d' bgcolor='#dec'></table>
+        <table id='table_others' bgcolor='#eed'></table>
 	</body>
 	<script type="text/javascript">
 		//define constants which will be shown and used later, in SI units
@@ -50,6 +51,15 @@
 			document.getElementById(tableID).innerHTML += t;
 		}
 		//begin funtions of formula
+		// begin others
+        function cal_rcCutoff(){
+            let r = document.getElementById('rcCutoff_r').value*1000.;
+			let c = document.getElementById('rcCutoff_c').value*1e-9;
+            document.getElementById('rcCutoff').value=1./2./Math.PI/r/c/1000.;
+		}
+		addFormula('table_others','f_c = \\frac{1}{2\\pi R C} = \\frac{160 \\mathrm{kHz}}{R (\\mathrm{k\\Omega}) C (\\mathrm{nF})}',
+			'rcCutoff',['R','C'],['rcCutoff_r','rcCutoff_c'],[1,1]);		
+		// end others
 		//begin 1D and 0D
         function cal_Cnanowire(){//capacitance between a wire and a plane
             let epsr = document.getElementById('Cnanowire_e').value;
