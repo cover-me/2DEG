@@ -6,9 +6,11 @@
 	</head>
 	<body style="background-color:#EEF">
 		<div id='constant', style='background:#ddd'></div>
-		<table id='table_0d_1d' bgcolor='#edb'></table>
-		<table id='table_2d' bgcolor='#dec'></table>
-        <table id='table_others' bgcolor='#eed'></table>
+		<table id='table_0d_1d' bgcolor='#edb'><caption>Dot / Wire</caption></table>
+		<table id='table_2d' bgcolor='#dec'><caption>2DEG</caption></table>
+        <table id='table_photon' bgcolor='#eed'><caption>Photon / Phonon</caption></table>
+		<br>
+		<a href='https://github.com/cover-me/2DEG'>GitHub repository</a>
 	</body>
 	<script type="text/javascript">
 		//define constants which will be shown and used later, in SI units
@@ -51,15 +53,51 @@
 			document.getElementById(tableID).innerHTML += t;
 		}
 		//begin funtions of formula
-		// begin others
+		// Photon
         function cal_rcCutoff(){
             let r = document.getElementById('rcCutoff_r').value*1000.;
 			let c = document.getElementById('rcCutoff_c').value*1e-9;
             document.getElementById('rcCutoff').value=1./2./Math.PI/r/c/1000.;
 		}
-		addFormula('table_others','f_c = \\frac{1}{2\\pi R C} = \\frac{160 \\mathrm{kHz}}{R (\\mathrm{k\\Omega}) C (\\mathrm{nF})}',
-			'rcCutoff',['R','C'],['rcCutoff_r','rcCutoff_c'],[1,1]);		
-		// end others
+		addFormula('table_photon','f_c = \\frac{1}{2\\pi R C} = \\frac{160 \\mathrm{kHz}}{R (\\mathrm{k\\Omega}) C (\\mathrm{nF})}',
+			'rcCutoff',['R','C'],['rcCutoff_r','rcCutoff_c'],[1,1]);
+
+        function cal_freq2len(){
+            let f = document.getElementById('freq2len_f').value*1.e9;//GHz
+            document.getElementById('freq2len').value=c/f*1000.;//mm
+		}
+		addFormula('table_photon','\\lambda = \\frac{c}{f} = \\mathrm{\\frac{300}{f (GHz)} mm}',
+			'freq2len',['f'],['freq2len_f'],[1]);
+			
+        function cal_freq2volt(){
+            let f = document.getElementById('freq2volt_f').value*1.e9;//GHz
+            document.getElementById('freq2volt').value=h*f/2./e*1.e6;//uV
+		}
+		addFormula('table_photon','V = \\frac{h f}{2 e} = \\mathrm{2.1 f (GHz) \\mu V}',
+			'freq2volt',['f'],['freq2volt_f'],[1]);
+			
+        function cal_freq2ev(){
+            let f = document.getElementById('freq2ev_f').value*1.e9;//GHz
+            document.getElementById('freq2ev').value=h*f/e*1.e6;//ueV
+		}
+		addFormula('table_photon','E = \\frac{h f}{e} = \\mathrm{4.1 f (GHz) \\mu eV}',
+			'freq2ev',['f'],['freq2ev_f'],[1]);
+			
+        function cal_freq2kelvin(){
+            let f = document.getElementById('freq2kelvin_f').value*1.e9;//GHz
+            document.getElementById('freq2kelvin').value=h*f/kb*1000.;//mK
+		}
+		addFormula('table_photon','T = \\frac{h f}{k_{B}} = \\mathrm{48 f (GHz) mK}',
+			'freq2kelvin',['f'],['freq2kelvin_f'],[1]);
+			
+        function cal_eV2kelvin(){
+            let ev = document.getElementById('eV2kelvin_ev').value*1.e-3;//mev
+            document.getElementById('eV2kelvin').value=ev*e/kb;//K
+		}
+		addFormula('table_photon','T = \\frac{E}{k_{B}} = \\mathrm{12 E (meV) K}',
+			'eV2kelvin',['E'],['eV2kelvin_ev'],[1]);
+			
+		// end Photon
 		//begin 1D and 0D
         function cal_Cnanowire(){//capacitance between a wire and a plane
             let epsr = document.getElementById('Cnanowire_e').value;
